@@ -1,0 +1,49 @@
+import pandas as pd
+import numpy as np
+
+# 数据整合————合并（有很多参数——需要用到时再进行学习，本笔记记录了简单的合并函数）
+frame1 = pd.DataFrame({"id": ["adam", "bob1", "win", "simon"], "old": [18, 20, 22, 24]})
+print(frame1)
+frame2 = pd.DataFrame(
+    {"id": ["bob2", "bob1", "adam", "jack"], "school": ["aaa", "ccc", "eee", "kkk"], "old": [20, 18, 24, 22]})
+print(frame2)
+merge1 = pd.merge(frame1, frame2, on="old")
+print(merge1)
+
+# 数据整合————拼接(数组拼接用concatenate()函数--按轴拼接Series和DataFrame对象用concat()函数)
+print("_________拼接_________")
+array1 = np.arange(9).reshape(3, 3)
+print(array1)
+array2 = np.arange(9).reshape(3, 3) + 9
+print(array2)
+print("_________拼接后的数组(array3)_______")
+array3 = np.concatenate([array1, array2], axis=0)  # 纵向拼接
+print(array3)
+array4 = np.concatenate([array1, array2], axis=1)  # 横向拼接
+print(array4)
+print("_________按轴拼接Series对象_________")
+ser1 = pd.Series(["adam", "bob", "simon"], index=[1, 2, 3])
+print(ser1)
+ser2 = pd.Series(["win", "jack", "clone"], index=[4, 5, 6])
+print(ser2)
+ser3_1 = pd.concat([ser1, ser2], axis=0)
+print(ser3_1)
+print("_______加入key值可清晰的识别被拼接的部分_______")
+ser3_2 = pd.concat([ser1, ser2], axis=0, keys=[1, 2])
+print(ser3_2)
+print("_________axis=1为DateFrame对象_________")
+ser3_3 = pd.concat([ser1, ser2], axis=1)
+print(ser3_3)
+print("_______________________________")
+ser3_4 = pd.concat([ser1, ser2], axis=1, keys=[1, 2])  # 加入键值可以修改DataFrame对象各列的名称,同时清晰的识别出被拼接的部分
+print(ser3_4)
+print("_________按轴拼接DataFrame对象_________")
+frame3 = pd.DataFrame(np.random.rand(9).reshape(3, 3), index=[1, 2, 3], columns=["A", "B", "C"])
+frame4 = pd.DataFrame(np.random.rand(9).reshape(3, 3), index=[4, 5, 6], columns=["A", "B", "C"])
+frame5 = pd.concat([frame3, frame4], axis=0, keys=[1, 2])
+print(frame5)
+frame6 = pd.concat([frame3, frame4], axis=1, keys=[1, 2])
+print(frame6)
+
+# 数据整合————组合
+
